@@ -5,7 +5,7 @@ module Maestrano::Connector::Rails
     end
 
     def current_organization
-      @current_organization ||= Organization.find_by(uid: session[:org_uid], tenant: session[:tenant])
+      @current_organization ||= Organization.find_by(org_uid: params['org_uid']) unless params.blank?
     end
 
     def current_user
@@ -13,7 +13,7 @@ module Maestrano::Connector::Rails
     end
 
     def is_admin
-      @is_admin ||= current_user && current_organization && is_admin?(current_user, current_organization)
+      @is_admin ||= true
     end
   end
 end
